@@ -42,7 +42,7 @@
 - (void)initData
 {
     _datePickerManager = [[HCDatePickerManager alloc] init];
-    _dataArray = [_datePickerManager getDatePickerDataWithFromDate:[NSDate dateWithTimeIntervalSince1970:1546491284]];
+    _dataArray = [_datePickerManager getDatePickerDataWithFromDate:nil toDate:nil];
     _currentYearIndex = _dataArray.count - 1;
 }
 
@@ -181,6 +181,9 @@
 {
     HCDateHeaderModel *headerModel = _dataArray[_currentYearIndex];
     HCDateModel *dateModel = headerModel.dateItems[indexPath.row];
+    if (dateModel.dateType == HCDateTypeAfterToday && !self.canSelectDateAfterToday) {
+        return;
+    }
     if (!_startTimeInterval) {
         _startTimeInterval = dateModel.dateInterval;
     }
@@ -198,6 +201,14 @@
         _endTimeInterval = nil;
     }
     [_contentCollectionView reloadData];
+    
+    if ((self.selectionType == HCDatePickerSelectionTypeSingle && _startTimeInterval) ||
+        (_startTimeInterval && _endTimeInterval)) {
+        collectionView.userInteractionEnabled = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

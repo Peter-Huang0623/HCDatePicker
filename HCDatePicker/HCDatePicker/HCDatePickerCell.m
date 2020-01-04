@@ -150,15 +150,12 @@
     else {
         _titleLabel.text = @"";
     }
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *c = [calendar components:NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
-    NSDate *today = [calendar dateFromComponents:c];
-    NSNumber *timeInterval = @([today timeIntervalSince1970] * 1000);
-    if ([dateModel.dateInterval longLongValue] > [timeInterval longLongValue]) {
-        _titleLabel.textColor = [UIColor grayColor];
+    if (dateModel.dateType == HCDateTypeToday ||
+        dateModel.dateType == HCDateTypeBeforeToday) {
+        _titleLabel.textColor = [UIColor blackColor];
     }
     else {
-        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.textColor = [UIColor grayColor];
     }
     if ((dateModel.selectedPosition == HCSelectedPositionStart || dateModel.selectedPosition == HCSelectedPositionEnd ||
         dateModel.selectedPosition == HCSelectedPositionUnknown) && dateModel.isSelected ) {

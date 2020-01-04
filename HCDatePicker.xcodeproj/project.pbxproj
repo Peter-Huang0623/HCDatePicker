@@ -74,6 +74,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E882078B23C0C73100A592C2 /* HCDatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				E8979F2D23BE3BE100E6D3E1 /* HCDatePickerController.h */,
+				E8979F2E23BE3BE100E6D3E1 /* HCDatePickerController.m */,
+				E8979F3023BE3BFF00E6D3E1 /* HCDatePickerManager.h */,
+				E8979F3123BE3BFF00E6D3E1 /* HCDatePickerManager.m */,
+				E8979F3323BE3C3200E6D3E1 /* HCDatePickerCell.h */,
+				E8979F3423BE3C3200E6D3E1 /* HCDatePickerCell.m */,
+				E8979F3623BE4AB700E6D3E1 /* HCDateModel.h */,
+				E8979F3723BE4AB700E6D3E1 /* HCDateModel.m */,
+				E8979F3923BE4C1300E6D3E1 /* HCDatePickerCollectionHeaderView.h */,
+				E8979F3A23BE4C1300E6D3E1 /* HCDatePickerCollectionHeaderView.m */,
+			);
+			path = HCDatePicker;
+			sourceTree = "<group>";
+		};
 		E8979F0823BE35A300E6D3E1 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +112,7 @@
 		E8979F1323BE35A300E6D3E1 /* HCDatePicker */ = {
 			isa = PBXGroup;
 			children = (
+				E882078B23C0C73100A592C2 /* HCDatePicker */,
 				E8979F1423BE35A300E6D3E1 /* AppDelegate.h */,
 				E8979F1523BE35A300E6D3E1 /* AppDelegate.m */,
 				E8979F1A23BE35A300E6D3E1 /* ViewController.h */,
@@ -103,16 +121,6 @@
 				E8979F2223BE35A500E6D3E1 /* LaunchScreen.storyboard */,
 				E8979F2523BE35A500E6D3E1 /* Info.plist */,
 				E8979F2623BE35A500E6D3E1 /* main.m */,
-				E8979F2D23BE3BE100E6D3E1 /* HCDatePickerController.h */,
-				E8979F2E23BE3BE100E6D3E1 /* HCDatePickerController.m */,
-				E8979F3023BE3BFF00E6D3E1 /* HCDatePickerManager.h */,
-				E8979F3123BE3BFF00E6D3E1 /* HCDatePickerManager.m */,
-				E8979F3323BE3C3200E6D3E1 /* HCDatePickerCell.h */,
-				E8979F3423BE3C3200E6D3E1 /* HCDatePickerCell.m */,
-				E8979F3623BE4AB700E6D3E1 /* HCDateModel.h */,
-				E8979F3723BE4AB700E6D3E1 /* HCDateModel.m */,
-				E8979F3923BE4C1300E6D3E1 /* HCDatePickerCollectionHeaderView.h */,
-				E8979F3A23BE4C1300E6D3E1 /* HCDatePickerCollectionHeaderView.m */,
 			);
 			path = HCDatePicker;
 			sourceTree = "<group>";
@@ -373,6 +381,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4JFVHCTQ8Z;
 				INFOPLIST_FILE = HCDatePicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -391,6 +400,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4JFVHCTQ8Z;
 				INFOPLIST_FILE = HCDatePicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

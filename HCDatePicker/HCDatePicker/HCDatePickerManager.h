@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HCDatePickerManager : NSObject
 
-- (NSArray *)getDatePickerDataWithFromDate:(NSDate *)fromDate;
+- (NSArray *)getDatePickerDataWithFromDate:(nullable NSDate *)fromDate toDate:(nullable NSDate *)toDate;
 
 @end
 

@@ -9,15 +9,21 @@
 #import "HCDatePickerManager.h"
 #import "HCDateModel.h"
 
+@interface HCDatePickerManager ()
+
+@property (nonatomic, strong) NSNumber *todayInterval;
+
+@end
+
 @implementation HCDatePickerManager
 
-- (NSArray *)getDatePickerDataWithFromDate:(NSDate *)fromDate
+- (NSArray *)getDatePickerDataWithFromDate:(nullable NSDate *)fromDate toDate:(nullable NSDate *)toDate
 {
     NSMutableArray *data = [NSMutableArray array];
-    NSDateComponents *components = [self dateToComponents:fromDate];
+    NSDateComponents *components = [self dateToComponents:fromDate ? fromDate : [NSDate dateWithTimeIntervalSince1970:946656035]];
     components.day = 1;
     NSInteger startYear = components.year;
-    NSInteger endYear = [self dateToComponents:[NSDate date]].year;
+    NSInteger endYear = [self dateToComponents:toDate ? toDate : [NSDate date]].year;
     NSInteger currentMonthOfCurrentYear = [self monthOfYear:[NSDate date]];
     for (NSInteger year = startYear; year <= endYear; year++) {
         components.year = year;
@@ -45,6 +51,15 @@
                 dateModel.day = components.day;
                 dateModel.dayOfWeek = [self dayOfWeek:[self componentsToDate:components]];
                 dateModel.dateInterval = [self componentsToNanoSecondsInterval:components];
+                if ([dateModel.dateInterval isEqualToNumber:self.todayInterval]) {
+                    dateModel.dateType = HCDateTypeToday;
+                }
+                else if ([dateModel.dateInterval longLongValue] > [self.todayInterval longLongValue]) {
+                    dateModel.dateType = HCDateTypeAfterToday;
+                }
+                else {
+                    dateModel.dateType = HCDateTypeBeforeToday;
+                }
                 [headerModel.dateItems addObject:dateModel];
                 components.day += 1;
             }
@@ -95,5 +110,16 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *c = [calendar components:NSCalendarUnitMonth fromDate:date];
     return c.month;
+}
+
+- (NSNumber *)todayInterval
+{
+    if (!_todayInterval) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *c = [calendar components:NSCalendarUnitDay | NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
+        NSDate *today = [calendar dateFromComponents:c];
+        _todayInterval = @([today timeIntervalSince1970] * 1000);
+    }
+    return _todayInterval;
 }
 @end
