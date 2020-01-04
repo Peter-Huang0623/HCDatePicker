@@ -16,6 +16,16 @@ typedef NS_ENUM(NSInteger, HCDatePickerSelectionType) {
     HCDatePickerSelectionTypeBoth
 };
 
+@class HCDatePickerController;
+@protocol HCDatePickerControllerDelegate <NSObject>
+
+@required
+- (void)HCDatePickerController:(HCDatePickerController *)datePickerController
+didFinishSelectStartTimeInterval:(NSNumber *)startTimeInterval
+               endTimeInterval:(NSNumber *)endTimeInterval;
+
+@end
+
 @interface HCDatePickerController : UIViewController
 
 /*
@@ -60,6 +70,8 @@ typedef NS_ENUM(NSInteger, HCDatePickerSelectionType) {
  *      NO      ---     一周的第一天是周日
  */
 @property (nonatomic, assign) BOOL firstDayOfWeekIsMonday;
+
+@property (nonatomic, weak) id <HCDatePickerControllerDelegate> delegate;
 
 @end
 

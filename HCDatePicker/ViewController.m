@@ -9,9 +9,10 @@
 #import "ViewController.h"
 #import "HCDatePickerController.h"
 
-@interface ViewController ()
+@interface ViewController ()<HCDatePickerControllerDelegate>
 
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -46,8 +47,27 @@
 {
     HCDatePickerController *vc = [[HCDatePickerController alloc] init];
     vc.firstDayOfWeekIsMonday = YES;
+    vc.selectionType = HCDatePickerSelectionTypeSingle;
+    vc.delegate = self;
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+- (void)HCDatePickerController:(HCDatePickerController *)datePickerController didFinishSelectStartTimeInterval:(NSNumber *)startTimeInterval endTimeInterval:(NSNumber *)endTimeInterval
+{
+    NSMutableString *str = [[NSMutableString alloc] initWithString:[self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[startTimeInterval longLongValue] / 1000]]];
+    if (endTimeInterval) {
+        [str appendString:[self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[endTimeInterval longLongValue] / 1000]]];
+    }
+    _timeLabel.text = [NSString stringWithString:str];
+}
+
+- (NSDateFormatter *)dateFormatter
+{
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    }
+    return _dateFormatter;
+}
 @end

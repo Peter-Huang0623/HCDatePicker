@@ -211,6 +211,9 @@
     if ((self.selectionType == HCDatePickerSelectionTypeSingle && _startTimeInterval) ||
         (_startTimeInterval && _endTimeInterval)) {
         collectionView.userInteractionEnabled = NO;
+        if ([self.delegate respondsToSelector:@selector(HCDatePickerController:didFinishSelectStartTimeInterval:endTimeInterval:)]) {
+            [self.delegate HCDatePickerController:self didFinishSelectStartTimeInterval:_startTimeInterval endTimeInterval:_endTimeInterval];
+        }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         });
