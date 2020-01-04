@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HCDateLabel : UILabel
 
-- (void)drawRectWithSelecetedPosition:(HCSelectedPosition)selectedPosition;
+- (void)drawRectWithSelecetedPosition:(HCSelectedPosition)selectedPosition
+                           isSelected:(BOOL)isSelected;
 
 @end
 
