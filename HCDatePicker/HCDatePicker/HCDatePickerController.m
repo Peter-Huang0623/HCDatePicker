@@ -27,7 +27,8 @@
 @property (nonatomic, assign) NSInteger currentYearIndex;
 @property (nonatomic, strong) NSNumber *startTimeInterval;
 @property (nonatomic, strong) NSNumber *endTimeInterval;
-
+@property (nonatomic, strong) UIButton *leftArrowButton;
+@property (nonatomic, strong) UIButton *rightArrowButton;
 
 @end
 
@@ -79,27 +80,29 @@
     [arrowDownButton setImage:[UIImage imageNamed:@"arrow drop down"] forState:UIControlStateNormal];
     [arrowDownButton addTarget:self action:@selector(onArrowDownBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *leftArrowButton = [[UIButton alloc] init];
-    [containerView addSubview:leftArrowButton];
-    [leftArrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _leftArrowButton = [[UIButton alloc] init];
+    [containerView addSubview:_leftArrowButton];
+    [_leftArrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(containerView).offset(24);
         make.width.equalTo(@20);
         make.height.equalTo(@20);
         make.centerY.equalTo(_titleLabel);
     }];
-    [leftArrowButton setImage:[UIImage imageNamed:@"chevron left"] forState:UIControlStateNormal];
-    [leftArrowButton addTarget:self action:@selector(onLeftArrowClick) forControlEvents:UIControlEventTouchUpInside];
+    [_leftArrowButton setImage:[UIImage imageNamed:@"chevron left"] forState:UIControlStateNormal];
+    [_leftArrowButton addTarget:self action:@selector(onLeftArrowClick) forControlEvents:UIControlEventTouchUpInside];
+    _leftArrowButton.hidden = _currentYearIndex == 0;
     
-    UIButton *rightArrowButton = [[UIButton alloc] init];
-    [containerView addSubview:rightArrowButton];
-    [rightArrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _rightArrowButton = [[UIButton alloc] init];
+    [containerView addSubview:_rightArrowButton];
+    [_rightArrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(containerView).offset(-24);
         make.width.equalTo(@20);
         make.height.equalTo(@20);
         make.centerY.equalTo(_titleLabel);
     }];
-    [rightArrowButton setImage:[UIImage imageNamed:@"chevron right"] forState:UIControlStateNormal];
-    [rightArrowButton addTarget:self action:@selector(onRightArrowClick) forControlEvents:UIControlEventTouchUpInside];
+    [_rightArrowButton setImage:[UIImage imageNamed:@"chevron right"] forState:UIControlStateNormal];
+    [_rightArrowButton addTarget:self action:@selector(onRightArrowClick) forControlEvents:UIControlEventTouchUpInside];
+    _rightArrowButton.hidden = _currentYearIndex == _dataArray.count - 1;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumLineSpacing = 0;
@@ -236,6 +239,8 @@
         return;
     }
     _currentYearIndex -= 1;
+    _leftArrowButton.hidden = _currentYearIndex == 0;
+    _rightArrowButton.hidden = _currentYearIndex == _dataArray.count - 1;
     _titleLabel.text = ((HCDateHeaderModel *)_dataArray[_currentYearIndex]).headerString;
     [_contentCollectionView reloadData];
 }
@@ -246,6 +251,8 @@
         return;
     }
     _currentYearIndex += 1;
+    _leftArrowButton.hidden = _currentYearIndex == 0;
+    _rightArrowButton.hidden = _currentYearIndex == _dataArray.count - 1;
     _titleLabel.text = ((HCDateHeaderModel *)_dataArray[_currentYearIndex]).headerString;
     [_contentCollectionView reloadData];
 }
