@@ -10,9 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface HCDatePickerConfig : NSObject
+
+@property (nonatomic, assign) BOOL firstDayOfWeekIsMonday;
+
+@end
+
 @interface HCDatePickerManager : NSObject
 
-- (NSArray *)getDatePickerDataWithFromDate:(nullable NSDate *)fromDate toDate:(nullable NSDate *)toDate;
+- (NSArray *)getDatePickerDataWithFromDate:(nullable NSDate *)fromDate toDate:(nullable NSDate *)toDate config:(HCDatePickerConfig *)config;
 
 @end
 

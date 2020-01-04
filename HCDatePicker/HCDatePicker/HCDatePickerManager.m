@@ -9,16 +9,22 @@
 #import "HCDatePickerManager.h"
 #import "HCDateModel.h"
 
+@implementation HCDatePickerConfig
+
+@end
+
 @interface HCDatePickerManager ()
 
 @property (nonatomic, strong) NSNumber *todayInterval;
+@property (nonatomic, strong) HCDatePickerConfig *config;
 
 @end
 
 @implementation HCDatePickerManager
 
-- (NSArray *)getDatePickerDataWithFromDate:(nullable NSDate *)fromDate toDate:(nullable NSDate *)toDate
+- (NSArray *)getDatePickerDataWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate config:(HCDatePickerConfig *)config
 {
+    _config = config;
     NSMutableArray *data = [NSMutableArray array];
     NSDateComponents *components = [self dateToComponents:fromDate ? fromDate : [NSDate dateWithTimeIntervalSince1970:946656035]];
     components.day = 1;
@@ -31,8 +37,8 @@
             components.month = month;
             components.day = 1;
             HCDateHeaderModel *headerModel = [[HCDateHeaderModel alloc] init];
-            headerModel.headerString = [NSString stringWithFormat:@"%ld年%d月",year, month];
             headerModel.year = year;
+            headerModel.month = month;
             headerModel.dateItems = [NSMutableArray<HCDateModel> array];
             for (NSInteger i = 1; i < [self dayOfWeek:[self componentsToDate:components]]; i++) {
                 HCDateModel *dateModel = [[HCDateModel alloc] init];
@@ -102,7 +108,8 @@
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *c = [calendar components:NSCalendarUnitWeekday fromDate:date];
-    return c.weekday;
+    NSInteger a = c.weekday > 1 ? c.weekday - 1 : 7;
+    return _config.firstDayOfWeekIsMonday ? a : c.weekday;
 }
 
 - (NSInteger)monthOfYear:(NSDate *)date
@@ -122,4 +129,5 @@
     }
     return _todayInterval;
 }
+
 @end

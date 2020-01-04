@@ -45,6 +45,7 @@
 - (void)onDatePickerButtonClick:(UIButton *)btn
 {
     HCDatePickerController *vc = [[HCDatePickerController alloc] init];
+    vc.firstDayOfWeekIsMonday = YES;
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:YES completion:nil];
 }

@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, HCSelectedPosition) {
 
 @property (nonatomic, strong) NSString *headerString;
 @property (nonatomic, assign) NSInteger year;
+@property (nonatomic, assign) NSInteger month;
 
 @property (nonatomic, strong) NSMutableArray <HCDateModel> *dateItems ;
 @end

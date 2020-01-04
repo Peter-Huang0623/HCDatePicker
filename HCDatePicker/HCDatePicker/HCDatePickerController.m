@@ -42,7 +42,9 @@
 - (void)initData
 {
     _datePickerManager = [[HCDatePickerManager alloc] init];
-    _dataArray = [_datePickerManager getDatePickerDataWithFromDate:nil toDate:nil];
+    HCDatePickerConfig *config = [[HCDatePickerConfig alloc] init];
+    config.firstDayOfWeekIsMonday = self.firstDayOfWeekIsMonday;
+    _dataArray = [_datePickerManager getDatePickerDataWithFromDate:nil toDate:nil config:config];
     _currentYearIndex = _dataArray.count - 1;
 }
 
@@ -108,13 +110,17 @@
     CGSize itemSize = CGSizeMake(itemW, itemW);
     flowLayout.itemSize = itemSize;
     
-    NSArray *englishWeekArray = @[@"S",@"M",@"T",@"W",@"T",@"F",@"S"];
+    NSArray *englishWeekArray = @[@"Sun",@"Mon",@"Tue",@"Wed",@"Thu",@"Fri",@"Sat"];
     NSArray *chineseWeekArray = @[@"日",@"一",@"二",@"三",@"四",@"五",@"六"];
+    if (self.firstDayOfWeekIsMonday) {
+        englishWeekArray = @[@"Mon",@"Tue",@"Wed",@"Thu",@"Fri",@"Sat",@"Sun"];
+        chineseWeekArray = @[@"一",@"二",@"三",@"四",@"五",@"六",@"日"];
+    }
     for (int i = 0; i < 7; i ++) {
         UILabel *weekLabel = [[UILabel alloc] initWithFrame:CGRectMake(itemW * i + 18, 51, itemW, itemW)];
         weekLabel.textColor = RGBA(0, 0, 0, 0.38);
         weekLabel.textAlignment = NSTextAlignmentCenter;
-        weekLabel.text = englishWeekArray[i];
+        weekLabel.text = [self systemLanguageIsChinese] ? chineseWeekArray[i] : englishWeekArray[i];
         weekLabel.font = [UIFont boldSystemFontOfSize:12];
         [containerView addSubview:weekLabel];
     }
@@ -239,5 +245,12 @@
     _currentYearIndex += 1;
     _titleLabel.text = ((HCDateHeaderModel *)_dataArray[_currentYearIndex]).headerString;
     [_contentCollectionView reloadData];
+}
+
+- (BOOL)systemLanguageIsChinese
+{
+    NSArray *array = [NSLocale preferredLanguages];
+    NSString *languageStr = array[0];
+    return [languageStr hasPrefix:@"zh"];
 }
 @end
