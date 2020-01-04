@@ -45,9 +45,14 @@
 @property (nonatomic, strong) UIColor *middleDateColor;
 
 /*
- *      YES     ---     一周的第一天是周日
- *      NO      ---     一周的第一天是周一
+ *      YES     ---     一周的第一天是周一
+ *      NO      ---     一周的第一天是周日
  */
-@property (nonatomic, assign) BOOL startDayOfWeekIsSunday;
+@property (nonatomic, assign) BOOL firstDayOfWeekIsMonday;
 
 ```
+
+#TODO
+* [ ] 选中状态颜色可配置
+* [x] 顶部文字提示随系统语言变换
+* [ ] 下拉选择年份
