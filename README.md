@@ -1,8 +1,15 @@
 # HCDatePicker
 ![Language](http://img.shields.io/badge/Language-Objective--C-brightgreen.svg?style=flat) [![CSDN](https://img.shields.io/badge/CSDN-Peter__Huang0623-orange.svg)](https://blog.csdn.net/Peter_Huang0623)  [![e-mail](https://img.shields.io/badge/E--mail-huangchao0623%40126.com-blue.svg)](huangchao0623@126.com)
 
+<div align=center> <img src='https://gz.bcebos.com/v1/peterhuang/PIC/notes/DatePicker3.png' width='100%' height='100%'> </div>
+
+## 说明
+
+HCDatePicker是一个高度自定义的时间选择器控件，可实现单选日期和区间选择，支持自定义可选区间，支持两种显示周的方式（第一天为周一/第一天为周日）。项目中HCDatePickerController主要实现显示逻辑和点选逻辑，在HCDatePickerManager中实现数据的生成。
+[项目地址](https://github.com/Peter-Huang0623/HCDatePicker)
+
 ## 预览图
-<div align=center> <img src='https://github.com/Peter-Huang0623/HCDatePicker/blob/master/Pictures/Desktop%20Date%20Pickers.png' width='100%' height='100%'> </div>
+<div align=center> <img src='https://gz.bcebos.com/v1/peterhuang/PIC/notes/DatePickerPreview.png' width='40%' height='40%'> </div>
 
 ## 自定义
 
