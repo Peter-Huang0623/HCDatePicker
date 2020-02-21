@@ -5,8 +5,17 @@
 
 ## 说明
 
-HCDatePicker是一个高度自定义的时间选择器控件，可实现单选日期和区间选择，支持自定义可选区间，支持两种显示周的方式（第一天为周一/第一天为周日）。项目中HCDatePickerController主要实现显示逻辑和点选逻辑，在HCDatePickerManager中实现数据的生成。
+&#9;HCDatePicker是一个高度自定义的时间选择器控件，可实现单选日期和区间选择，支持自定义可选区间，支持两种显示周的方式（第一天为周一/第一天为周日）。项目中HCDatePickerController主要实现显示逻辑和点选逻辑，在HCDatePickerManager中实现数据的生成。
 [项目地址](https://github.com/Peter-Huang0623/HCDatePicker)
+
+## 数据生成
+在`HCDatePickerManager`中的`getDatePickerDataWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate config:(HCDatePickerConfig *)config`方法中生成数据，传入一个起始时间和一个截止时间，按月生成数据，返回的数组中存放的是一个个HCDateHeaderModel,每日数据存放在HCDateHeaderModel的dateItems数组下，HCDateHeaderModel的声明如下：
+```
+@property (nonatomic, strong) NSString *headerString;
+@property (nonatomic, assign) NSInteger year;
+@property (nonatomic, assign) NSInteger month;
+@property (nonatomic, strong) NSMutableArray <HCDateModel> *dateItems ;
+```
 
 ## 预览图
 <div align=center> <img src='https://gz.bcebos.com/v1/peterhuang/PIC/notes/DatePickerPreview.png' width='40%' height='40%'> </div>
